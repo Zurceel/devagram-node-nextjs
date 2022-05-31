@@ -16,7 +16,8 @@ const pesquisaEndpoint = async (req: NextApiRequest, res: NextApiResponse<Respos
 
             const usuariosEncontrados = await UsuarioModel.find({
                 $or: [{ nome: {$regex: filtro, $options: 'i'}}, 
-                {email: {$regex: filtro, $options: 'i'}}]
+                //{email: {$regex: filtro, $options: 'i'}}
+            ]
             })
 
             return res.status(200).json(usuariosEncontrados)
