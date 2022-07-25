@@ -1,11 +1,11 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import type {RespostaPadraoMsg} from '../../types/RespostaPadraoMsg'
-import { validarTokenJWT } from "../../middlewares/validarTokenJWT";
-import { conectarMongoDB } from "../../middlewares/conectarMongoDB";
-import { UsuarioModel } from "../../models/UsuarioModel";
-import nc from 'next-connect'
-import {updload, uploadImagemCosmic} from '../../services/uploadImagemCosmic'
-import { politicaCORS } from "../../middlewares/politicaCORS";
+import type {NextApiRequest, NextApiResponse} from 'next';
+import type {RespostaPadraoMsg} from '../../types/RespostaPadraoMsg';
+import {validarTokenJWT} from '../../middlewares/validarTokenJWT';
+import {conectarMongoDB} from '../../middlewares/conectarMongoDB';
+import { UsuarioModel } from '../../models/UsuarioModel';
+import nc from 'next-connect';
+import {updload, uploadImagemCosmic} from '../../services/uploadImagemCosmic';
+import { politicaCORS } from '../../middlewares/politicaCORS';
 
 const handler = nc()
     .use(updload.single('file'))
@@ -44,6 +44,7 @@ const handler = nc()
         try{
             const {userId} = req?.query;
             const usuario = await UsuarioModel.findById(userId);
+            console.log('usuario', usuario);
             usuario.senha = null;
             return res.status(200).json(usuario);
         }catch(e){
